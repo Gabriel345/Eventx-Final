@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, Input, Text } from "react-native-elements";
-import  Icon  from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from "../style/MainStyle";
 import { useNavigation } from '@react-navigation/native';
-import Cadastro from "./Cadastro";
 
 export default function Login() {
 
@@ -14,8 +13,8 @@ export default function Login() {
 
   const entrar = () => {
     navigation.reset({
-        index: 0,
-        routes: [{ name: "Principal" }]
+      index: 0,
+      routes: [{ name: "Principal" }]
 
     })
   }
@@ -36,47 +35,47 @@ export default function Login() {
 
       <Input
         placeholder="Senha: "
-        leftIcon={{ type: "font-awesome", name: "key" }}
+        leftIcon={{ type: "font-awesome", name: "lock" }}
         onChangeText={(value) => setPassword(value)}
-        secureTextEntry = {true}
+        secureTextEntry={true}
       />
 
-    <View style = {styles.botoes}>
-        <Button 
+      <View style={styles.botoes}>
+        <Button
           icon={
-          <Icon
-           name= "check"
-           size = {15}
-           color = "white"
-         />
-       }
-       title = "Entrar"
-       onPress={() => entrar()}
-       />
-        <Button 
-          icon={
-           <Icon
-           name= "user"
-           size = {15}
-           color = "white"
+            <Icon
+              name="check"
+              size={15}
+              color="white"
             />
           }
-          title = "Cadastrar"
-        onPress={() => Cadastro()}
+          title="Entrar"
+          onPress={() => entrar()}
+        />
+        <Button
+          icon={
+            <Icon 
+              name="user"
+              size={15}
+              color="white"
+            />
+          }
+          title="Cadastrar"
+          onPress={() => Cadastro()}
         />
       </View>
-  </View>
+    </View>
   );
 }
 
 const specificStyle = StyleSheet.create({
-    Text: {
+  Text: {
     position: 'relative',
     bottom: 100,
 
   },
   button: {
     width: 110,
-  }
 
-})
+  },
+ })

@@ -5,7 +5,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "../style/MainStyle";
 import { useNavigation } from "@react-navigation/native";
 import { TextInputMask } from "react-native-masked-text";
-import { ScrollView } from "react-native-web";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -49,6 +48,7 @@ export default function Cadastro() {
     if (validar()) {
       alert("Cadastrado com sucesso !");
     }
+
   };
 
   return (
