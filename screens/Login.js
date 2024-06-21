@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Button, Input, Text } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from "../style/MainStyle";
@@ -25,7 +25,7 @@ export default function Login() {
 
   return (
     <View style={[styles.container, specificStyle.specificContainer]}>
-      <Text style={specificStyle.Text} h3> EventX </Text>
+       <Text style={specificStyle.Logo} h1> Event<Text style={{ color: "blue" }} h3>X</Text> </Text> 
       <Input
         placeholder="E-mail: "
         leftIcon={{ type: "font-awesome", name: "envelope" }}
@@ -42,40 +42,46 @@ export default function Login() {
 
       <View style={styles.botoes}>
         <Button
-          icon={
-            <Icon
-              name="check"
-              size={15}
-              color="white"
-            />
-          }
           title="Entrar"
           onPress={() => entrar()}
+
         />
-        <Button
-          icon={
-            <Icon 
-              name="user"
-              size={15}
-              color="white"
-            />
-          }
-          title="Cadastrar"
-          onPress={() => Cadastro()}
-        />
+
+      </View>
+
+      <View style={specificStyle.container}>
+        <View style={specificStyle.textRow}>
+          <Text style={specificStyle.textCadastro}>
+            Não possui cadastro?{' '}
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+            <Text style={specificStyle.link}>Cadastre-se</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 }
 
 const specificStyle = StyleSheet.create({
-  Text: {
+  container: {
+    paddingTop: 40,
+  },
+  textRow: {
+    flexDirection: 'row',
+    alignItems: 'center', // Alinha verticalmente os itens ao centro
+  },
+  textCadastro: {
+    fontSize: 18,
+  },
+  link: {
+    color: 'blue',
+    fontSize: 18,
+  },
+  Logo: {
     position: 'relative',
-    bottom: 100,
+    bottom: 150,
+  }
 
-  },
-  button: {
-    width: 110,
+});
 
-  },
- })

@@ -20,18 +20,13 @@ const Feed = () => {
   );
 }
 
+
 const Eventos = () => {
   const eventos = [
-    { id: 1, title: 'Evento 1' },
-    { id: 2, title: 'Evento 2' },
-    { id: 3, title: 'Evento 3' },
-    { id: 4, title: 'Evento 4' },
-    { id: 5, title: 'Evento 5' },
-    { id: 6, title: 'Evento 6' },
-    { id: 7, title: 'Evento 7' },
-    { id: 8, title: 'Evento 8' },
-    { id: 9, title: 'Evento 9' },
-    { id: 10, title: 'Evento 10' },
+    { id: 1, title: 'Intensivão React.JS e typescript', image: require('../images/typescript.jpg') },
+    { id: 2, title: 'Música e Inteligência Artificial', image: require('../images/musica.jpg') },
+    { id: 3, title: 'Educação financeira', image: require('../images/reuniao.jpg') },
+    { id: 4, title: 'Imersão Phyton', image: require('../images/python.jpg') },
   ];
 
   return (
@@ -41,11 +36,11 @@ const Eventos = () => {
           <View key={evento.id} style={styles.card}>
             <Text style={styles.cardTitle}>{evento.title}</Text>
             <View style={styles.CardImagens}>
-              <Image source={require('../images/foto2.jpg')} style={styles.Fotos}></Image>
+              <Image source={evento.image} style={styles.Fotos} />
             </View>
             <Button
               buttonStyle={styles.buttonCard}
-              title="Entrar"
+              title="Ver mais..."
               onPress={() => alert(`Entrar no ${evento.title}`)}
             />
           </View>
@@ -53,8 +48,37 @@ const Eventos = () => {
       </ScrollView>
     </View>
   );
-}
+};
 
+
+const Inicio = () => {
+  const feed = [
+    { id: 1, title: 'Aulão Banco de Dados', image: require('../images/banco.jpg') },
+    { id: 2, title: 'Aprenda Java', image: require('../images/java.jpg') },
+    { id: 3, title: 'O Data Science', image: require('../images/datasience.jpg') },
+    { id: 4, title: 'Javascript descomplicado', image: require('../images/javascript.jpg') },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        {feed.map(feed => (
+          <View key={feed.id} style={styles.cardInicio}>
+            <Text style={styles.cardTitle}>{feed.title}</Text>
+            <View style={styles.CardImagens}>
+              <Image source={feed.image} style={styles.Fotos} />
+            </View>
+            <Button
+              buttonStyle={styles.buttonCard}
+              title="Ver mais..."
+              onPress={() => alert(`Entrar no ${feed.title}`)}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
 const Profile = () => {
   return (
     <View style={styles.container}>
@@ -153,10 +177,25 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  cardInicio: {
+    width: 350,
+    height: 350,
+    margin: 5,
+    padding: 10,
+    backgroundColor: '#006da4',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   cardTitle: {
+    paddingTop: 10,
     textAlign: 'center',
     color: 'white',
     fontSize: 18,
+    backgroundColor: '#032030',
+    width: '100%',
+    height: '15%',
+    elevation: 15,
+    shadowColor: 'white'
   },
   buttonCard: {
     width: 100,
@@ -213,28 +252,41 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     padding: 10,
   },
+  CardImagens: {
+    width: '100%',
+    height: 200,
+    marginBottom: 10,
+  },
+  Fotos: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+    resizeMode: 'cover',
+  },
 });
+
 
 const Principal = () => {
   return (
     <Tab.Navigator initialRouteName='Feed' screenOptions={{ tabBarActiveTintColor: 'blue' }}>
       <Tab.Screen
         name="Feed"
-        component={Feed}
+        component={Inicio}
         options={({ navigation }) => ({
           tabBarLabel: 'Início',
           tabBarIcon: ({ color, size }) => (<MaterialIcons name="home" color={color} size={size} />),
-          headerRight: () => (
-            <MaterialIcons
-              name="logout"
-              size={24}
-              color="red"
-              style={{ marginRight: 10 }}
-              onPress={() => {
-                navigation.navigate('Login');
-              }}
-            />
-          ),
+          // headerRight: () => (
+          //   <MaterialIcons
+          //     name="logout"
+          //     size={24}
+          //     color="red"
+          //     style={{ marginRight: 10 }}
+          //     onPress={() => {
+          //       navigation.navigate('Login');
+          //     }}
+          //   />
+          // ),
+          headerTitle: ""
         })}
       />
       <Tab.Screen
@@ -242,7 +294,9 @@ const Principal = () => {
         component={Eventos}
         options={{
           tabBarLabel: 'Eventos',
-          tabBarIcon: ({ color, size }) => (<MaterialIcons name="event" color={color} size={size} />)
+          tabBarIcon: ({ color, size }) => (<MaterialIcons name="event" color={color} size={size} />),
+          headerTitle: "",
+
         }}
       />
       <Tab.Screen
@@ -250,7 +304,7 @@ const Principal = () => {
         component={Scanner}
         options={{
           tabBarLabel: 'Leitor de QrCode',
-          tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="data-matrix-scan" color={color} size={size} />)
+          tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="data-matrix-scan" color={color} size={size} />), headerTitle: "",
         }}
       />
       <Tab.Screen
@@ -261,7 +315,7 @@ const Principal = () => {
           tabBarIcon: ({ color, size }) => (<MaterialIcons name="person" color={color} size={size} />),
           headerRight: () => (
             <MaterialIcons
-              name="settings"
+              name="logout"
               size={24}
               color="blue"
               style={{ marginRight: 10 }}
@@ -270,6 +324,8 @@ const Principal = () => {
               }}
             />
           ),
+          headerTitle: "",
+
         })}
       />
     </Tab.Navigator>

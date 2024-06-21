@@ -10,9 +10,7 @@ const styles = StyleSheet.create({
         
     },
     botoes: {
-        rowGap: 20,
-        marginTop: 20,
-
+        width: 100,
     },
     containerMask:{
         flexDirection: 'row',

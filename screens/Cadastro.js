@@ -4,27 +4,23 @@ import { Button, CheckBox, Input, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "../style/MainStyle";
 import { useNavigation } from "@react-navigation/native";
-import { TextInputMask } from "react-native-masked-text";
+// import { TextInputMask } from "react-native-masked-text";
+import Login from "./Login";
 
 export default function Cadastro() {
   const navigation = useNavigation();
   const [email, setEmail] = useState(null);
   const [nome, setNome] = useState(null);
-  const [cpf, setCpf] = useState(null);
-  const [telefone, setTelefone] = useState(null);
   const [isSelected, setisSelected] = useState(false);
   const [erroremail, setErrorEmail] = useState(null);
   const [errornome, setErrorNome] = useState(null);
-  const [errorcpf, setErrorCpf] = useState(null);
-  const [errortelefone, setErrorTelefone] = useState(null);
+  const [senha, setSenha] = useState(null);
+  const [errorsenha, setErrorSenha] = useState(null);
 
-  let cpffield = null;
-  let telefonefield = null;
 
   const validar = () => {
     let error = false;
     setErrorEmail(null);
-    setErrorCpf(null);
 
     const re =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -33,20 +29,18 @@ export default function Cadastro() {
       setErrorEmail("Preencha seu E-mail corretamente");
       error = true;
     }
-    if (!cpffield.isValid()) {
-      setErrorCpf("Preencha seu CPF corretamente");
+    if (senha == null) {
+      setErrorSenha("Por favor, insira uma senha")
       error = true;
     }
-    if (telefone == null) {
-      setErrorTelefone("Preencha seu Telefone corretamente");
-      error = true;
-    }
+
     return !error;
   };
 
   const salvar = () => {
     if (validar()) {
       alert("Cadastrado com sucesso !");
+      navigation.navigate(Login);
     }
 
   };
@@ -59,6 +53,12 @@ export default function Cadastro() {
       </Text>
 
       <Input
+        placeholder="Nome: "
+        onChangeText={(value) => setNome(value)}
+        errorMessage={errornome}
+     
+     />
+      <Input
         placeholder="E-mail: "
         onChangeText={(value) => {
           setEmail(value);
@@ -66,52 +66,32 @@ export default function Cadastro() {
         }}
         keyboardType="email-address"
         errorMessage={erroremail}
+      
       />
       <Input
-        placeholder="Nome: "
-        onChangeText={(value) => setNome(value)}
-        errorMessage={errornome}
-      />
-
-      <View style={styles.containerMask}>
-        <TextInputMask
-          placeholder="Cpf:"
-          type="cpf"
-          value={cpf}
-          onChangeText={(value) => {
-            setCpf(value);
-            setErrorCpf(null);
-          }}
-          keyboardType="phone-pad"
-          style={styles.maskedInput}
-          ref={(ref) => (cpffield = ref)}
-        />
-      </View>
-      <Text style={styles.errorMessage}>{errorcpf}</Text>
-
-      <View style={styles.containerMask}>
-        <TextInputMask
-          placeholder="Telefone:"
-          type={"cel-phone"}
-          options={{
-            maskType: "BRL",
-            withDDD: true,
-            dddMask: "(99) ",
-          }}
-          value={telefone}
-          onChangeText={(value) => setTelefone(value)}
-          keyboardType="phone-pad"
-          style={styles.maskedInput}
-          ref={(ref) => (telefonefield = ref)}
-        />
-      </View>
-      <Text style={styles.errorMessage}>{errortelefone}</Text>
-
+        placeholder="Senha:"
+        onChangeText={(value) => {
+          setSenha(value);
+          setErrorSenha(null);
+        }}
+        errorMessage={errorsenha}
+     
+     />
+      <Input
+        placeholder="Confirme sua Senha:"
+        onChangeText={(value) => {
+          setSenha(value);
+          setErrorSenha(null);
+        }}
+        errorMessage={errorsenha}
+     
+     />
+    
       <CheckBox
         title="Aceito os termos de uso"
         checkedIcon="check"
         uncheckedIcon="square-o"
-        checkedColor="green"
+        checkedColor="blue"
         uncheckedColor="red"
         checked={isSelected}
         onPress={() => setisSelected(!isSelected)}
@@ -133,7 +113,10 @@ const specificStyle = StyleSheet.create({
     bottom: 100,
   },
   button: {
-    width: 100,
+    width: 120,
     marginTop: 20,
   },
+
+  
+
 });
